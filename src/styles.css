@@ -253,6 +253,36 @@ h1[tabindex]:focus { outline: none; }
 .shake { animation: shake 360ms ease; }
 @keyframes shake { 20%, 60% { transform: translateX(-6px); } 40%, 80% { transform: translateX(6px); } }
 
+/* ── Offer (between package choice and the U9 confirmation) ───────── */
+/* One screen tall: the visual takes whatever height is left above the card. */
+.offer { min-height: 100vh; min-height: 100dvh; padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px)); }
+.offer-stage { position: relative; flex: 1 1 0; min-height: 150px; }
+.offer-art { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.offer-card {
+  display: grid; gap: 14px; text-align: center; color: var(--white);
+  background: linear-gradient(180deg, #4A1BC9, var(--purple-deep) 55%, #2A0E80);
+  border-radius: 28px; padding: 22px clamp(16px, 5vw, 22px) 18px;
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.14), 0 18px 40px rgba(20, 6, 70, 0.45);
+}
+.offer-card :focus-visible { outline-color: var(--white); }
+.offer-card h1 { display: grid; font-size: clamp(1.25rem, 5.6vw, 1.625rem); font-weight: 900; line-height: 1.25; letter-spacing: -0.01em; }
+:lang(my) .offer-card h1 { font-weight: 700; line-height: 1.65; letter-spacing: 0; }
+.offer-gold, .offer-price { color: var(--gold); }
+.offer-price { font-weight: 800; white-space: nowrap; }
+.offer-fine { font-size: 0.8125rem; line-height: 1.55; color: rgba(255, 255, 255, 0.92); }
+:lang(my) .offer-fine { line-height: 1.8; }
+.btn-gold { background: var(--gold); color: var(--purple-deep); box-shadow: 0 5px 0 var(--gold-deep); }
+.btn-gold:active { transform: translateY(3px); box-shadow: 0 2px 0 var(--gold-deep); }
+/* Short phones: tighten the card so the button and price stay on the first screen. */
+@media (max-height: 640px) {
+  .offer { gap: 10px; }
+  .offer .topbar { min-height: 52px; padding-block: 2px; }
+  .offer-stage { min-height: 110px; }
+  .offer-card { gap: 10px; padding: 14px 14px 12px; border-radius: 24px; }
+  .offer-card .btn-lg { min-height: 52px; font-size: 1rem; }
+  .offer-fine { font-size: 0.75rem; }
+}
+
 /* ── Simulated U9 confirmation (neutral stand-in) ─────────────────── */
 .op {
   position: relative; z-index: 2; min-height: 100vh; min-height: 100dvh;

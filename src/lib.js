@@ -2,7 +2,11 @@ import C from "./config.js";
 
 export const params = new URLSearchParams(location.search);
 export const devOn = params.get("dev") === "1" || location.hash === "#dev";
-export const SCREENS = ["landing", "confirm", "success", "blocked", "error", "redirect"];
+export const SCREENS = ["landing", "offer", "confirm", "success", "blocked", "error", "redirect"];
+
+// The offer screen has its own route (/offer?pkg=daily) so a reload or a shared link opens it again.
+export const onOfferPath = () => location.pathname.replace(/\/+$/, "") === C.offerPath;
+export const pkgFromQuery = () => C.packages.some(p => p.id === params.get("pkg")) ? params.get("pkg") : null;
 
 export const session = {
   get(k) { try { return JSON.parse(sessionStorage.getItem(k)); } catch { return null; } },

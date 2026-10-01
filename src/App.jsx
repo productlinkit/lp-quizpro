@@ -3,29 +3,40 @@ import { flushSync } from "react-dom";
 import { useI18n } from "./i18n.jsx";
 import C from "./config.js";
 import { requestConfirmation } from "./operator.js";
-import { SCREENS, SIM_DEFAULTS, devOn, home, initialSim, leave, pkgById, session } from "./lib.js";
+import { SCREENS, SIM_DEFAULTS, devOn, home, initialSim, leave, onOfferPath, pkgById, pkgFromQuery, session } from "./lib.js";
 import Landing from "./screens/Landing.jsx";
+import Offer from "./screens/Offer.jsx";
 import Confirm from "./screens/Confirm.jsx";
 import SuccessPopup from "./screens/SuccessPopup.jsx";
 import { Blocked, ErrorScreen, Redirect } from "./screens/Status.jsx";
 import DevPanel from "./components/DevPanel.jsx";
 
 // The URL keeps its query string (and #dev) on every step; the screen lives in history state.
-const url = () => location.pathname + location.search + (devOn ? "#dev" : "");
+// The offer and confirm steps also carry the chosen package, and the offer screen has its own path.
+function urlFor(screen, pkg) {
+  const q = new URLSearchParams(location.search);
+  q.delete("pkg");
+  if (screen === "offer" || screen === "confirm") q.set("pkg", pkg);
+  const s = q.toString();
+  return (screen === "offer" ? C.offerPath : "/") + (s ? `?${s}` : "") + (devOn ? "#dev" : "");
+}
 const calm = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
-const entry = sim => sim.network === "blocked" ? "blocked" : home(sim);
+const start = () => onOfferPath() ? "offer" : "landing";   // the page the link points at
+const entry = sim => sim.network === "blocked" ? "blocked" : home(sim) === "redirect" ? "redirect" : start();
 
 export default function App() {
   const [sim, setSimState] = useState(initialSim);
   const simRef = useRef(sim);                 // latest switches, for the delayed checks below
   const [nav, setNav] = useState(() => ({ screen: entry(sim), from: null, step: 0 }));
-  const [pkg, setPkg] = useState(C.defaultPackage);
+  const [pkg, setPkg] = useState(() => pkgFromQuery() || C.defaultPackage);
+  const pkgRef = useRef(pkg);
+  pkgRef.current = pkg;
   const [busy, setBusy] = useState(false);
   const [shake, setShake] = useState(0);
   const [devOpen, setDevOpen] = useState(false);
   const mainRef = useRef(null);
   const screenRef = useRef(nav.screen);
-  const resume = useRef(home(sim));           // where "Try Again" on the blocked screen continues to
+  const resume = useRef(start());           // where "Try Again" on the blocked screen continues to
   const landingScroll = useRef(0);
   const { screen } = nav;
 
@@ -35,12 +46,12 @@ export default function App() {
     setSimState(simRef.current);
   }
 
-  function go(next, { replace = false, push = true } = {}) {
+  function go(next, { replace = false, push = true, pkg = pkgRef.current } = {}) {
     const from = screenRef.current;
     if (from === "landing" && next !== "landing" && next !== "success") landingScroll.current = scrollY;
     screenRef.current = next;
     if (push) {
-      try { history[replace ? "replaceState" : "pushState"]({ screen: next }, "", url()); } catch { /* sandboxed history */ }
+      try { history[replace ? "replaceState" : "pushState"]({ screen: next, pkg }, "", urlFor(next, pkg)); } catch { /* sandboxed history */ }
     }
     const apply = () => {
       setBusy(false);
@@ -58,13 +69,20 @@ export default function App() {
     if (nav.step === 0) return;
     const target = nav.screen === "success" ? document.getElementById("start-btn") : mainRef.current.querySelector("h1[tabindex]");
     target?.focus({ preventScroll: true });
-    const restore = nav.screen === "landing" && (nav.from === "confirm" || nav.from === "error");
+    const restore = nav.screen === "landing" && ["offer", "confirm", "error"].includes(nav.from);
     if (nav.screen !== "success") scrollTo(0, restore ? landingScroll.current : 0);
   }, [nav]);
 
   useEffect(() => {
-    try { history.replaceState({ screen: screenRef.current }, "", url()); } catch { /* sandboxed history */ }
-    const onPop = ev => { if (SCREENS.includes(ev.state?.screen)) go(ev.state.screen, { push: false }); };
+    try { history.replaceState({ screen: screenRef.current, pkg: pkgRef.current }, "", urlFor(screenRef.current, pkgRef.current)); } catch { /* sandboxed history */ }
+    // Back/forward: the offer and confirm steps bring back the package they were opened with;
+    // the landing page keeps whatever the user has selected.
+    const onPop = ev => {
+      const s = ev.state?.screen;
+      if (!SCREENS.includes(s)) return;
+      if ((s === "offer" || s === "confirm") && ev.state.pkg) setPkg(ev.state.pkg);
+      go(s, { push: false });
+    };
     addEventListener("popstate", onPop);
     return () => removeEventListener("popstate", onPop);
   }, []);
@@ -102,7 +120,11 @@ export default function App() {
     setBusy(true);
     setTimeout(() => {
       if (screenRef.current !== "blocked") return;
-      if (simRef.current.network === "ok") { go(resume.current === "confirm" ? "confirm" : home(simRef.current), { replace: true }); return; }
+      if (simRef.current.network === "ok") {
+        const r = resume.current;
+        go(r === "confirm" ? "confirm" : home(simRef.current) === "redirect" ? "redirect" : r, { replace: true });
+        return;
+      }
       setBusy(false);
       setShake(n => n + 1);
     }, 700);
@@ -114,9 +136,10 @@ export default function App() {
     go(entry(SIM_DEFAULTS));
   }
 
-  const landing = <Landing pkg={pkg} onPick={setPkg} onSubscribe={subscribe} />;
+  const landing = <Landing pkg={pkg} onPick={setPkg} onSubscribe={() => go("offer")} />;
   const views = {
     landing,
+    offer: <Offer pkg={pkg} onSubscribe={subscribe} />,
     confirm: <Confirm pkg={pkg} busy={busy} onConfirm={confirm} onNotNow={() => go("landing")} />,
     success: <>{landing}<SuccessPopup /></>,
     blocked: <Blocked busy={busy} shake={shake} onRetry={retryBlocked} />,

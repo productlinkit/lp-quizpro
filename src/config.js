@@ -20,6 +20,9 @@ export default {
   // How long the "Opening QuizPro" notice shows before an already-subscribed user is sent to the app.
   redirectDelayMs: 1200,
 
+  // Path of the offer screen; the chosen package rides along as ?pkg=daily|weekly.
+  offerPath: "/offer",
+
   // Query parameters used by the prototype itself; they are not forwarded to the QuizPro app.
-  internalParams: ["dev", "lang", "net", "sub", "result"],
+  internalParams: ["dev", "lang", "net", "sub", "result", "pkg"],
 };

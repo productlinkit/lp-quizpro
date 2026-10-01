@@ -15,7 +15,7 @@ export default function Confirm({ pkg, busy, onConfirm, onNotNow }) {
       <div className="op-body">
         <div className="op-summary">
           <div className="op-head">
-            <img className="op-app" src="assets/quizpro.png" alt="" width="48" height="48" />
+            <img className="op-app" src="/assets/quizpro.png" alt="" width="48" height="48" />
             <h1 className="op-service" tabIndex={-1} aria-label={service}>
               <span>{svc}</span>{plan && <span className="op-plan">{plan}</span>}
             </h1>

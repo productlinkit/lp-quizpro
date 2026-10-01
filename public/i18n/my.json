@@ -9,6 +9,15 @@
   "landing.finePrint": "ပယ်ဖျက်သည်အထိ အလိုအလျောက် သက်တမ်းတိုးပါမည်။ သင့် U9 ဖုန်းဘေလ် လက်ကျန်ငွေမှ ဖြတ်တောက်ပါမည်။ ဝန်ဆောင်မှု ပယ်ဖျက်ရန် {cancelCode} ကို ခေါ်ဆိုပါ။",
   "landing.whatYouGet": "သင်ရရှိမည့် အရာများ",
 
+  "offer.headline1": "QuizPro နဲ့အတူ",
+  "offer.headline2": "သင့်ဉာဏ်စွမ်း ကို မြှင့်တင်လိုက်ပါ။",
+  "offer.cta": "အခုပဲ ဝန်ဆောင်မှု ရယူလိုက်ပါ",
+  "offer.price": "{amount} ကျပ်",
+  "offer.line1.daily": "နေ့စဉ် ဝန်ဆောင်မှု {price}သာ (အခွန်အပါဝင်)",
+  "offer.line2.daily": "(တစ်ရက် အခမဲ့ အသုံးပြုခွင့် ပါဝင်သည်)",
+  "offer.line1.weekly": "အပတ်စဉ် ဝန်ဆောင်မှု {price}သာ (အခွန်အပါဝင်)",
+  "offer.line2.weekly": "(ခုနစ်ရက် အခမဲ့ အသုံးပြုခွင့် ပါဝင်သည်)",
+
   "packages.daily.name": "နေ့စဉ်",
   "packages.daily.access": "၁ ရက် အခမဲ့ အသုံးပြုခွင့်",
   "packages.weekly.name": "အပတ်စဉ်",

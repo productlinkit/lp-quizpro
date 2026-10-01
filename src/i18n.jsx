@@ -14,7 +14,7 @@ export function I18nProvider({ initialLang, children }) {
   const [failed, setFailed] = useState(false);
 
   useEffect(() => {
-    Promise.all(["en", "my"].map(l => fetch(`i18n/${l}.json`).then(r => r.json())))
+    Promise.all(["en", "my"].map(l => fetch(`/i18n/${l}.json`).then(r => r.json())))
       .then(([en, my]) => setDict({ en, my }))
       .catch(() => setFailed(true));
   }, []);
