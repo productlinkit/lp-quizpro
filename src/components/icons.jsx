@@ -12,13 +12,5 @@ export const WifiOffIcon = () => (
 );
 export const AlertIcon = () => <Svg><circle cx="12" cy="12" r="9.5" /><path d="M12 7v6" /><circle cx="12" cy="16.6" r="1.1" fill="currentColor" /></Svg>;
 export const InfoIcon = () => <Svg sw={2}><circle cx="12" cy="12" r="9.5" /><path d="M12 11v5.5" /><circle cx="12" cy="7.8" r="1" fill="currentColor" /></Svg>;
-export const QuizIcon = () => <Svg><path d="M9 18h6" /><path d="M10 21h4" /><path d="M12 3a6 6 0 0 0-3.6 10.8c.7.6 1.1 1.3 1.1 2.2h5c0-.9.4-1.6 1.1-2.2A6 6 0 0 0 12 3z" /></Svg>;
-export const BattleIcon = () => <Svg><path d="M13 2L4.5 13.5H11L10 22l8.5-11.500H12z" /></Svg>;
-export const RewardsIcon = () => (
-  <Svg>
-    <rect x="3.5" y="8" width="17" height="4.5" rx="1.2" /><path d="M5 12.5V20h14v-7.500" /><path d="M12 8v12" />
-    <path d="M12 8c-1.5-4-6-4-6-1.500C6 8 9 8 12 8zM12 8c1.500-4 6-4 6-1.500C18 8 15 8 12 8z" />
-  </Svg>
-);
 
 export const Spinner = () => <span className="spinner" aria-hidden="true" />;

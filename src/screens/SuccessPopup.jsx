@@ -4,7 +4,7 @@ import { CheckIcon } from "../components/icons.jsx";
 
 const COLORS = ["#FFC629", "#5B21D6", "#38BDF8", "#F0569B", "#34C77B"];
 
-// Shown over the landing page.
+// Shown over the offer page.
 export default function SuccessPopup() {
   const { t } = useI18n();
   return (

@@ -1,12 +1,12 @@
+import C from "../config.js";
 import { useI18n } from "../i18n.jsx";
-import { pkgById } from "../lib.js";
 import { InfoIcon, Spinner } from "../components/icons.jsx";
 
 // Stand-in for U9's own consent page: deliberately plain, no U9 branding.
-// The service line is one translated string ("QuizPro · Weekly"); it is shown as title + package tag.
-export default function Confirm({ pkg, busy, onConfirm, onNotNow }) {
+// The service line is one translated string ("QuizPro · Daily"); it is shown as title + package tag.
+export default function Confirm({ busy, onConfirm, onNotNow }) {
   const { t, price, withCode } = useI18n();
-  const p = pkgById(pkg);
+  const p = C.pkg;
   const service = t("confirm.service", { name: t(`packages.${p.id}.name`) });
   const cut = service.indexOf(" · ");
   const [svc, plan] = cut < 0 ? [service, ""] : [service.slice(0, cut), service.slice(cut + 3)];

@@ -1,13 +1,13 @@
+import C from "../config.js";
 import { useI18n } from "../i18n.jsx";
-import { pkgById } from "../lib.js";
 import TopBar from "../components/TopBar.jsx";
 import OfferHero from "../components/OfferHero.jsx";
 
-// Offer step between the package choice and U9's confirmation: one screen, no scrolling,
+// The landing page, ahead of U9's confirmation: one screen, no scrolling,
 // big visual on top and the offer card with the button at the bottom.
-export default function Offer({ pkg, onSubscribe }) {
+export default function Offer({ onSubscribe }) {
   const { t, num } = useI18n();
-  const p = pkgById(pkg);
+  const p = C.pkg;
   const price = t("offer.price", { amount: num(p.price) });
   // Copy with the price highlighted.
   const withPrice = key => {
