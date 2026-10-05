@@ -1,7 +1,6 @@
 import { useEffect, useRef } from "react";
 
-// Drawings shared by the landing hero and the offer screen. Each one is drawn in the landing hero's
-// 360 × 224 coordinate space; the offer screen moves and scales them with a wrapping transform.
+// Drawings for the landing hero, each one drawn in its 360 × 224 coordinate space.
 
 export const HeroDefs = () => (
   <defs>

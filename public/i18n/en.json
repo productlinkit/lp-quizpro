@@ -9,19 +9,8 @@
   "landing.finePrint": "Auto-renews until you cancel. Charged to your U9 balance. To cancel, dial {cancelCode}.",
   "landing.whatYouGet": "What you get",
 
-  "offer.headline1": "Level Up Your Knowledge",
-  "offer.headline2": "with QuizPro!",
-  "offer.cta": "Get the service now",
-  "offer.price": "{amount} Ks",
-  "offer.line1.daily": "Daily service only {price} (tax included)",
-  "offer.line2.daily": "(Includes 1 day free access)",
-  "offer.line1.weekly": "Weekly service only {price} (tax included)",
-  "offer.line2.weekly": "(Includes 7 days free access)",
-
   "packages.daily.name": "Daily",
   "packages.daily.access": "1 day free access",
-  "packages.weekly.name": "Weekly",
-  "packages.weekly.access": "7 days free access",
   "price": "{amount} MMK",
 
   "benefits.quiz": "Trivia quizzes on many topics",
