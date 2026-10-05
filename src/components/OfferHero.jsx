@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { BackPaper, BigCoin, CoinStack, HeroDefs, Piece, QuestionPaper, SmallCoin, Sparkle, TinyCoin, Trophy, useParallax } from "./heroParts.jsx";
 
-// Moves a drawing whose centre in the drawings' own space is (ox, oy) to (x, y) in this space, at scale s.
+// Moves a drawing whose centre in the landing-hero space is (ox, oy) to (x, y) in this space, at scale s.
 const at = (x, y, s, ox, oy) => `translate(${x - ox * s} ${y - oy * s}) scale(${s})`;
 const SPARKLES = [[24, 40, 1], [338, 30, 0.9], [330, 230, 0.7], [22, 250, 0.8], [250, 8, 0.6], [110, 14, 0.6]];
 
