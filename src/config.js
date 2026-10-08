@@ -7,8 +7,11 @@ export default {
   defaultPackage: "daily",
 
   // Name and access copy for each package: i18n keys "packages.<id>.name" / "packages.<id>.access".
+  // The main package gets the large card across the full row; the others sit below it, smaller.
   packages: [
-    { id: "daily", price: 200, days: 1 },
+    { id: "daily", price: 200, days: 1, main: true },
+    { id: "weekly", price: 735, days: 7 },
+    { id: "monthly", price: 999, days: 30 },
   ],
 
   // Leave a link empty until its page exists; an empty link does nothing when tapped.

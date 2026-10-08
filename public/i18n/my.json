@@ -11,6 +11,10 @@
 
   "packages.daily.name": "နေ့စဉ်",
   "packages.daily.access": "၁ ရက် အခမဲ့ အသုံးပြုခွင့်",
+  "packages.weekly.name": "အပတ်စဉ်",
+  "packages.weekly.access": "၇ ရက် အခမဲ့ အသုံးပြုခွင့်",
+  "packages.monthly.name": "လစဉ်",
+  "packages.monthly.access": "၃၀ ရက် အခမဲ့ အသုံးပြုခွင့်",
   "price": "{amount} ကျပ်",
 
   "benefits.quiz": "ခေါင်းစဉ်မျိုးစုံဖြင့် ဉာဏ်စမ်းပဟေဠိများ",

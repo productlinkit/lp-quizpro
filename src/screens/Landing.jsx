@@ -9,6 +9,9 @@ import { BattleIcon, CheckIcon, QuizIcon, RewardsIcon } from "../components/icon
 // Copy: i18n keys "benefits.<id>".
 const BENEFITS = [["quiz", QuizIcon], ["battle", BattleIcon], ["rewards", RewardsIcon]];
 
+// Lines break only at spaces, never inside a word: Myanmar text would otherwise split mid-word in the small cards.
+const words = s => s.split(" ").map((w, i) => <span key={i}>{i > 0 && " "}<span className="w">{w}</span></span>);
+
 // A link that is still empty in config does nothing when tapped.
 function PageLink({ id }) {
   const { t } = useI18n();
@@ -46,11 +49,11 @@ export default function Landing({ pkg, onPick, onSubscribe }) {
             {C.packages.map(p => {
               const on = p.id === pkg;
               return (
-                <label key={p.id} className={`pkg${on ? " is-selected" : ""}`}>
+                <label key={p.id} className={`pkg${p.main ? " pkg-main" : ""}${on ? " is-selected" : ""}`}>
                   <input type="radio" name="pkg" id={`pkg-${p.id}`} value={p.id} checked={on} onChange={() => onPick(p.id)} />
                   <span className="pkg-top"><span className="pkg-name">{t(`packages.${p.id}.name`)}</span><span className="pkg-dot"><CheckIcon /></span></span>
                   <span className="pkg-price">{price(p)}</span>
-                  <span className="pkg-access">{t(`packages.${p.id}.access`)}</span>
+                  <span className="pkg-access">{words(t(`packages.${p.id}.access`))}</span>
                 </label>
               );
             })}

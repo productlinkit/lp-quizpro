@@ -11,6 +11,10 @@
 
   "packages.daily.name": "Daily",
   "packages.daily.access": "1 day free access",
+  "packages.weekly.name": "Weekly",
+  "packages.weekly.access": "7 days free access",
+  "packages.monthly.name": "Monthly",
+  "packages.monthly.access": "30 days free access",
   "price": "{amount} MMK",
 
   "benefits.quiz": "Trivia quizzes on many topics",
